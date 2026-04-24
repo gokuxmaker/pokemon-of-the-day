@@ -1,427 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=800, initial-scale=1.0" />
-  <title>Pokémon of the Day</title>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;900&family=Press+Start+2P&display=swap" rel="stylesheet" />
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=800"/>
+<title>Pokédex</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:800px;height:480px;overflow:hidden;background:#f5f0e8;font-family:'DM Sans',sans-serif}
+body{display:grid;grid-template-columns:320px 1fr}
 
-    :root {
-      --bg: #1a1a2e;
-      --card: #16213e;
-      --card2: #0f3460;
-      --accent: #e94560;
-      --gold: #f5a623;
-      --text: #eaeaea;
-      --muted: #8899aa;
-      --shine: rgba(255,255,255,0.04);
-    }
+.left{background:#fff;border-right:1px solid #e0d8cc;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px 24px;gap:16px;position:relative}
+.number-stamp{position:absolute;top:18px;left:20px;font-family:'Playfair Display',serif;font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#bbb}
+.genus-tag{position:absolute;top:18px;right:20px;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:#999;font-weight:500}
+.img-wrap{width:210px;height:210px;display:flex;align-items:center;justify-content:center;position:relative}
+.img-wrap::before{content:'';position:absolute;width:190px;height:190px;border-radius:50%;background:var(--type-color,#f0ece3);opacity:0.2}
+#poke-img{width:190px;height:190px;object-fit:contain;position:relative;z-index:1;image-rendering:-webkit-optimize-contrast}
+.types-row{display:flex;gap:6px}
+.tpill{font-size:10px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;padding:4px 12px;border-radius:2px;background:var(--tc,#ddd);color:var(--ttext,#333)}
 
-    body {
-      width: 800px;
-      height: 480px;
-      overflow: hidden;
-      background: var(--bg);
-      font-family: 'Nunito', sans-serif;
-      color: var(--text);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-    }
+.right{background:#f5f0e8;padding:28px 30px 22px 30px;display:flex;flex-direction:column;justify-content:space-between}
+.top-bar{display:flex;align-items:baseline;justify-content:space-between;border-bottom:2px solid #222;padding-bottom:8px;margin-bottom:16px}
+#poke-name{font-family:'Playfair Display',serif;font-size:36px;font-weight:900;text-transform:capitalize;color:#1a1a1a;line-height:1}
+.label-small{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#888;font-weight:500}
+#poke-desc{font-size:13px;line-height:1.75;color:#444;font-weight:300;border-left:3px solid #222;padding-left:12px;overflow:hidden;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical}
 
-    /* Animated star bg */
-    .stars {
-      position: absolute; inset: 0; pointer-events: none; overflow: hidden;
-    }
-    .star {
-      position: absolute;
-      background: white;
-      border-radius: 50%;
-      animation: twinkle var(--dur) ease-in-out infinite alternate;
-    }
-    @keyframes twinkle { from { opacity: 0.1; } to { opacity: 0.8; } }
+.stats-title{font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:#999;font-weight:500;margin-bottom:8px}
+.stats-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:6px}
+.stat-col{display:flex;flex-direction:column;align-items:center;gap:4px}
+.stat-bar-vert{width:6px;height:52px;background:#e8e2d8;border-radius:3px;overflow:hidden;display:flex;align-items:flex-end}
+.stat-fill{width:100%;border-radius:3px}
+.stat-num{font-size:11px;font-weight:500;color:#333}
+.stat-lbl{font-size:8.5px;text-transform:uppercase;letter-spacing:0.5px;color:#aaa;text-align:center}
 
-    /* Pokeball watermark */
-    .pokeball-bg {
-      position: absolute;
-      right: -60px; top: -60px;
-      width: 260px; height: 260px;
-      border-radius: 50%;
-      border: 30px solid rgba(255,255,255,0.04);
-      pointer-events: none;
-    }
-    .pokeball-bg::after {
-      content: '';
-      position: absolute;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      width: 30px; height: 30px;
-      border-radius: 50%;
-      border: 8px solid rgba(255,255,255,0.06);
-    }
-
-    /* Layout */
-    .layout {
-      display: flex;
-      width: 780px;
-      height: 460px;
-      gap: 20px;
-      position: relative;
-      z-index: 1;
-      padding: 20px;
-    }
-
-    /* Left panel */
-    .left {
-      width: 270px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .day-badge {
-      font-family: 'Press Start 2P', monospace;
-      font-size: 7px;
-      color: var(--gold);
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      opacity: 0.9;
-    }
-
-    .card-frame {
-      width: 240px;
-      height: 240px;
-      border-radius: 20px;
-      background: linear-gradient(135deg, var(--card2), var(--card));
-      border: 2px solid rgba(255,255,255,0.08);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      overflow: hidden;
-    }
-    .card-frame::before {
-      content: '';
-      position: absolute; inset: 0;
-      background: radial-gradient(ellipse at 30% 30%, rgba(255,255,255,0.06), transparent 60%);
-      pointer-events: none;
-    }
-
-    #poke-img {
-      width: 180px;
-      height: 180px;
-      object-fit: contain;
-      image-rendering: pixelated;
-      filter: drop-shadow(0 8px 20px rgba(0,0,0,0.6));
-      transition: transform 0.4s ease, opacity 0.3s;
-    }
-    #poke-img.loading { opacity: 0; transform: scale(0.85); }
-    #poke-img.loaded { opacity: 1; transform: scale(1); animation: float 3s ease-in-out infinite; }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-8px); }
-    }
-
-    .types {
-      display: flex; gap: 8px;
-    }
-    .type-pill {
-      padding: 4px 14px;
-      border-radius: 20px;
-      font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    /* Right panel */
-    .right {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .name-row {
-      display: flex;
-      align-items: baseline;
-      gap: 10px;
-    }
-    #poke-name {
-      font-family: 'Press Start 2P', monospace;
-      font-size: 19px;
-      color: #fff;
-      text-transform: capitalize;
-      line-height: 1.3;
-    }
-    #poke-id {
-      font-size: 13px;
-      color: var(--muted);
-      font-weight: 600;
-    }
-
-    #poke-description {
-      font-size: 13.5px;
-      line-height: 1.75;
-      color: #ccd6e0;
-      background: var(--shine);
-      border-left: 3px solid var(--accent);
-      padding: 10px 14px;
-      border-radius: 0 10px 10px 0;
-      min-height: 80px;
-    }
-
-    /* Stats */
-    .stats-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 6px 16px;
-    }
-    .stat-row {
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
-    }
-    .stat-label {
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      color: var(--muted);
-      font-weight: 600;
-    }
-    .stat-bar-wrap {
-      display: flex; align-items: center; gap: 6px;
-    }
-    .stat-bar {
-      flex: 1; height: 5px; border-radius: 3px;
-      background: rgba(255,255,255,0.08);
-      overflow: hidden;
-    }
-    .stat-fill {
-      height: 100%; border-radius: 3px;
-      transition: width 0.8s ease;
-    }
-    .stat-val {
-      font-size: 11px; font-weight: 700; color: var(--text);
-      min-width: 24px; text-align: right;
-    }
-
-    /* Info row */
-    .info-row {
-      display: flex; gap: 12px;
-    }
-    .info-chip {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 10px;
-      padding: 6px 12px;
-      font-size: 11px;
-      color: var(--muted);
-    }
-    .info-chip span {
-      color: var(--text);
-      font-weight: 700;
-      font-size: 12px;
-    }
-
-    /* Date footer */
-    .date-tag {
-      font-size: 10px;
-      color: var(--muted);
-      text-align: right;
-    }
-
-    /* Loading overlay */
-    #loading {
-      position: absolute; inset: 0; z-index: 10;
-      background: var(--bg);
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      gap: 14px;
-      transition: opacity 0.5s;
-    }
-    #loading.hide { opacity: 0; pointer-events: none; }
-    .pokeball-spin {
-      width: 48px; height: 48px;
-      border-radius: 50%;
-      border-top: 5px solid var(--accent);
-      border-right: 5px solid transparent;
-      border-bottom: 5px solid var(--accent);
-      border-left: 5px solid transparent;
-      animation: spin 0.8s linear infinite;
-    }
-    @keyframes spin { to { transform: rotate(360deg); } }
-    .loading-text {
-      font-family: 'Press Start 2P', monospace;
-      font-size: 8px;
-      color: var(--muted);
-      letter-spacing: 1px;
-    }
-
-    /* Type colors */
-    .t-fire { background: #ff6b35; color: #fff; }
-    .t-water { background: #4a90d9; color: #fff; }
-    .t-grass { background: #48b04e; color: #fff; }
-    .t-electric { background: #f5c542; color: #2a1a00; }
-    .t-psychic { background: #e05f8e; color: #fff; }
-    .t-ice { background: #74c6d3; color: #fff; }
-    .t-dragon { background: #5b6fcf; color: #fff; }
-    .t-dark { background: #3d2b1f; color: #c9a87c; }
-    .t-fairy { background: #e88fc9; color: #fff; }
-    .t-normal { background: #a8a77a; color: #fff; }
-    .t-fighting { background: #c22e28; color: #fff; }
-    .t-flying { background: #89a9d0; color: #fff; }
-    .t-poison { background: #a33ea1; color: #fff; }
-    .t-ground { background: #e2bf65; color: #2a1a00; }
-    .t-rock { background: #b6a136; color: #fff; }
-    .t-bug { background: #a6b91a; color: #fff; }
-    .t-ghost { background: #735797; color: #fff; }
-    .t-steel { background: #b7b7ce; color: #333; }
-    .t-unknown { background: #666; color: #fff; }
-  </style>
+.info-row{display:flex;gap:10px;flex-wrap:wrap}
+.chip{background:#fff;border:1px solid #e0d8cc;border-radius:2px;padding:5px 11px;font-size:11px;color:#666;display:flex;gap:5px;align-items:center}
+.chip strong{color:#222;font-weight:500}
+.date-line{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:#bbb;text-align:right}
+</style>
 </head>
 <body>
-
-<div class="stars" id="stars"></div>
-<div class="pokeball-bg"></div>
-
-<div id="loading">
-  <div class="pokeball-spin"></div>
-  <div class="loading-text">Loading Pokémon...</div>
-</div>
-
-<div class="layout">
-  <div class="left">
-    <div class="day-badge">✦ Pokémon of the Day ✦</div>
-    <div class="card-frame">
-      <img id="poke-img" src="" alt="Pokemon" class="loading" />
-    </div>
-    <div class="types" id="types"></div>
+<div class="left">
+  <span class="number-stamp" id="num-stamp">#001</span>
+  <span class="genus-tag" id="genus-tag"></span>
+  <div class="img-wrap" id="img-wrap">
+    <img id="poke-img" src="" alt=""/>
   </div>
-
-  <div class="right">
-    <div>
-      <div class="name-row">
-        <div id="poke-name">—</div>
-        <div id="poke-id">#000</div>
-      </div>
+  <div class="types-row" id="types-row"></div>
+</div>
+<div class="right">
+  <div>
+    <div class="top-bar">
+      <div id="poke-name">—</div>
+      <div class="label-small">Pokédex Entry</div>
     </div>
-
-    <div id="poke-description">Searching the Pokédex...</div>
-
+    <p id="poke-desc">—</p>
+  </div>
+  <div class="stats-section">
+    <div class="stats-title">Base Stats</div>
     <div class="stats-grid" id="stats-grid"></div>
-
-    <div class="info-row" id="info-row"></div>
-
-    <div class="date-tag" id="date-tag"></div>
   </div>
+  <div class="info-row" id="info-row"></div>
+  <div class="date-line" id="date-line"></div>
 </div>
-
 <script>
-  /* Stars */
-  const starsEl = document.getElementById('stars');
-  for (let i = 0; i < 60; i++) {
-    const s = document.createElement('div');
-    s.className = 'star';
-    const sz = Math.random() * 2 + 1;
-    s.style.cssText = `width:${sz}px;height:${sz}px;top:${Math.random()*100}%;left:${Math.random()*100}%;--dur:${(Math.random()*2+1.5).toFixed(1)}s`;
-    starsEl.appendChild(s);
+const TYPE_COLORS={fire:{bg:'#FF9B54',text:'#5a1f00'},water:{bg:'#5EAEFF',text:'#002b5a'},grass:{bg:'#6DC96D',text:'#0d3300'},electric:{bg:'#FFD93D',text:'#3a2800'},psychic:{bg:'#F06292',text:'#3a0016'},ice:{bg:'#80DEEA',text:'#003d45'},dragon:{bg:'#7986CB',text:'#0d0f3a'},dark:{bg:'#795548',text:'#f5dfd0'},fairy:{bg:'#F48FB1',text:'#3a001e'},normal:{bg:'#BCAAA4',text:'#2a1a16'},fighting:{bg:'#EF5350',text:'#1a0000'},flying:{bg:'#90CAF9',text:'#001f3a'},poison:{bg:'#AB47BC',text:'#fff'},ground:{bg:'#D4A847',text:'#1a0e00'},rock:{bg:'#A1887F',text:'#fff'},bug:{bg:'#AED581',text:'#1a2800'},ghost:{bg:'#9575CD',text:'#fff'},steel:{bg:'#B0BEC5',text:'#1a2228'},unknown:{bg:'#ccc',text:'#333'}};
+const STAT_LABELS={hp:'HP',attack:'ATK',defense:'DEF','special-attack':'SpA','special-defense':'SpD',speed:'SPD'};
+const STAT_COLORS={hp:'#E57373',attack:'#FF8A65',defense:'#64B5F6','special-attack':'#CE93D8','special-defense':'#81C784',speed:'#4DD0E1'};
+
+const randId=Math.floor(Math.random()*1010)+1;
+
+async function load(){
+  try{
+    const [pr,sr]=await Promise.all([
+      fetch('https://pokeapi.co/api/v2/pokemon/'+randId).then(r=>r.json()),
+      fetch('https://pokeapi.co/api/v2/pokemon-species/'+randId).then(r=>r.json())
+    ]);
+    document.getElementById('poke-name').textContent=pr.name;
+    document.getElementById('num-stamp').textContent='#'+String(pr.id).padStart(3,'0');
+    const genus=(sr.genera||[]).find(g=>g.language.name==='en');
+    document.getElementById('genus-tag').textContent=genus?genus.genus:'';
+    const img=pr.sprites?.other?.['official-artwork']?.front_default||pr.sprites?.front_default||'';
+    document.getElementById('poke-img').src=img;
+    const primaryType=pr.types[0]?.type.name||'normal';
+    const ptc=TYPE_COLORS[primaryType]||TYPE_COLORS.unknown;
+    document.getElementById('img-wrap').style.setProperty('--type-color',ptc.bg);
+    const typesRow=document.getElementById('types-row');
+    typesRow.innerHTML=pr.types.map(t=>{const c=TYPE_COLORS[t.type.name]||TYPE_COLORS.unknown;return '<div class="tpill" style="--tc:'+c.bg+';--ttext:'+c.text+'">'+t.type.name+'</div>';}).join('');
+    const entries=(sr.flavor_text_entries||[]).filter(e=>e.language.name==='en');
+    const pick=entries[Math.floor(Math.random()*Math.min(entries.length,6))];
+    document.getElementById('poke-desc').textContent=pick?pick.flavor_text.replace(/[\f\n\r]/g,' '):'No entry found.';
+    const sg=document.getElementById('stats-grid');
+    sg.innerHTML=pr.stats.map(s=>{const key=s.stat.name;const val=s.base_stat;const pct=Math.min(100,Math.round((val/255)*100));const col=STAT_COLORS[key]||'#888';return '<div class="stat-col"><div class="stat-bar-vert"><div class="stat-fill" style="height:'+pct+'%;background:'+col+'"></div></div><div class="stat-num">'+val+'</div><div class="stat-lbl">'+(STAT_LABELS[key]||key)+'</div></div>';}).join('');
+    const gen=(sr.generation?.name||'').replace('generation-','Gen ').toUpperCase();
+    const ht=(pr.height/10).toFixed(1)+'m';
+    const wt=(pr.weight/10).toFixed(1)+'kg';
+    const hab=sr.habitat?.name||'—';
+    document.getElementById('info-row').innerHTML='<div class="chip">Height <strong>'+ht+'</strong></div><div class="chip">Weight <strong>'+wt+'</strong></div><div class="chip">Gen <strong>'+(gen||'—')+'</strong></div><div class="chip">Habitat <strong>'+hab+'</strong></div>';
+    const d=new Date();
+    document.getElementById('date-line').textContent=d.toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
+  }catch(e){
+    document.getElementById('poke-name').textContent='Error loading';
+    document.getElementById('poke-desc').textContent='Could not fetch data. Check connection.';
   }
-
-  /* Date */
-  const now = new Date();
-  document.getElementById('date-tag').textContent =
-    now.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-
-  /* Deterministic daily Pokémon (1–1010) */
-  const dayNum = Math.floor(now.getTime() / 86400000);
-  const pokeId = (dayNum % 1010) + 1;
-
-  const statColors = {
-    hp: '#e94560', attack: '#f5a623', defense: '#4a90d9',
-    'special-attack': '#a855f7', 'special-defense': '#22c55e', speed: '#06b6d4'
-  };
-  const statLabels = {
-    hp: 'HP', attack: 'ATK', defense: 'DEF',
-    'special-attack': 'Sp.ATK', 'special-defense': 'Sp.DEF', speed: 'SPD'
-  };
-
-  async function loadPokemon() {
-    try {
-      const [pokeRes, speciesRes] = await Promise.all([
-        fetch(`https://pokeapi.co/api/v2/pokemon/${pokeId}`),
-        fetch(`https://pokeapi.co/api/v2/pokemon-species/${pokeId}`)
-      ]);
-      const poke = await pokeRes.json();
-      const species = await speciesRes.json();
-
-      /* Name & ID */
-      document.getElementById('poke-name').textContent = poke.name;
-      document.getElementById('poke-id').textContent = `#${String(poke.id).padStart(3,'0')}`;
-
-      /* Image */
-      const imgEl = document.getElementById('poke-img');
-      const imgUrl = poke.sprites?.other?.['official-artwork']?.front_default
-                  || poke.sprites?.front_default;
-      imgEl.onload = () => { imgEl.classList.remove('loading'); imgEl.classList.add('loaded'); };
-      imgEl.src = imgUrl;
-
-      /* Types */
-      const typesEl = document.getElementById('types');
-      typesEl.innerHTML = poke.types.map(t =>
-        `<div class="type-pill t-${t.type.name}">${t.type.name}</div>`
-      ).join('');
-
-      /* Description */
-      const entries = species.flavor_text_entries.filter(e => e.language.name === 'en');
-      const desc = entries.length ? entries[Math.floor(Math.random() * Math.min(entries.length, 5))].flavor_text.replace(/\f|\n/g, ' ') : 'No description available.';
-      document.getElementById('poke-description').textContent = desc;
-
-      /* Stats */
-      const statsGrid = document.getElementById('stats-grid');
-      statsGrid.innerHTML = poke.stats.map(s => {
-        const key = s.stat.name;
-        const val = s.base_stat;
-        const pct = Math.min(100, (val / 255) * 100);
-        const col = statColors[key] || '#aaa';
-        const lbl = statLabels[key] || key;
-        return `
-          <div class="stat-row">
-            <div class="stat-label">${lbl}</div>
-            <div class="stat-bar-wrap">
-              <div class="stat-bar"><div class="stat-fill" style="width:${pct}%;background:${col}"></div></div>
-              <div class="stat-val">${val}</div>
-            </div>
-          </div>`;
-      }).join('');
-
-      /* Info chips */
-      const infoRow = document.getElementById('info-row');
-      const htM = (poke.height / 10).toFixed(1);
-      const wtK = (poke.weight / 10).toFixed(1);
-      const gen = species.generation?.name?.replace('generation-', 'Gen ').toUpperCase() || '—';
-      infoRow.innerHTML = `
-        <div class="info-chip">Height <span>${htM}m</span></div>
-        <div class="info-chip">Weight <span>${wtK}kg</span></div>
-        <div class="info-chip">Generation <span>${gen}</span></div>
-        <div class="info-chip">Habitat <span>${species.habitat?.name || '—'}</span></div>
-      `;
-
-      /* Hide loading */
-      document.getElementById('loading').classList.add('hide');
-    } catch (e) {
-      document.getElementById('poke-name').textContent = 'Error';
-      document.getElementById('poke-description').textContent = 'Could not load Pokémon data. Check your internet connection.';
-      document.getElementById('loading').classList.add('hide');
-    }
-  }
-
-  loadPokemon();
+}
+load();
 </script>
 </body>
 </html>
