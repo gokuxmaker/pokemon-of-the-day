@@ -7,36 +7,36 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{width:800px;height:480px;overflow:hidden;background:#f5f0e8;font-family:'DM Sans',sans-serif}
-body{display:grid;grid-template-columns:320px 1fr}
+html,body{width:800px;height:480px;overflow:hidden;background:#fff;font-family:'DM Sans',sans-serif}
+body{display:grid;grid-template-columns:300px 1fr}
 
-.left{background:#fff;border-right:1px solid #e0d8cc;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px 24px;gap:16px;position:relative}
-.number-stamp{position:absolute;top:18px;left:20px;font-family:'Playfair Display',serif;font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#bbb}
-.genus-tag{position:absolute;top:18px;right:20px;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:#999;font-weight:500}
-.img-wrap{width:210px;height:210px;display:flex;align-items:center;justify-content:center;position:relative}
-.img-wrap::before{content:'';position:absolute;width:190px;height:190px;border-radius:50%;background:var(--type-color,#f0ece3);opacity:0.2}
-#poke-img{width:190px;height:190px;object-fit:contain;position:relative;z-index:1;image-rendering:-webkit-optimize-contrast}
-.types-row{display:flex;gap:6px}
-.tpill{font-size:10px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;padding:4px 12px;border-radius:2px;background:var(--tc,#ddd);color:var(--ttext,#333)}
+.left{background:#fff;border-right:1px solid #eee;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px 18px;gap:12px;position:relative}
+.number-stamp{position:absolute;top:16px;left:18px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;letter-spacing:2px;color:#ccc}
+.genus-tag{position:absolute;top:16px;right:18px;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:#bbb;font-weight:400}
+.img-wrap{width:200px;height:200px;display:flex;align-items:center;justify-content:center;position:relative}
+.img-wrap::before{content:'';position:absolute;width:185px;height:185px;border-radius:50%;background:var(--type-color,#f5f5f5);opacity:0.25}
+#poke-img{width:185px;height:185px;object-fit:contain;position:relative;z-index:1}
+.types-row{display:flex;gap:7px}
+.tpill{font-size:11px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;padding:5px 14px;border-radius:3px;background:var(--tc,#eee);color:var(--ttext,#333)}
 
-.right{background:#f5f0e8;padding:28px 30px 22px 30px;display:flex;flex-direction:column;justify-content:space-between}
-.top-bar{display:flex;align-items:baseline;justify-content:space-between;border-bottom:2px solid #222;padding-bottom:8px;margin-bottom:16px}
-#poke-name{font-family:'Playfair Display',serif;font-size:36px;font-weight:900;text-transform:capitalize;color:#1a1a1a;line-height:1}
-.label-small{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#888;font-weight:500}
-#poke-desc{font-size:13px;line-height:1.75;color:#444;font-weight:300;border-left:3px solid #222;padding-left:12px;overflow:hidden;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical}
+.right{background:#fff;padding:26px 30px 20px 28px;display:flex;flex-direction:column;justify-content:space-between}
+.top-bar{display:flex;align-items:flex-end;justify-content:space-between;border-bottom:2.5px solid #111;padding-bottom:10px;margin-bottom:14px}
+#poke-name{font-family:'Playfair Display',serif;font-size:42px;font-weight:900;text-transform:capitalize;color:#111;line-height:1}
+.label-small{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#aaa;font-weight:400;padding-bottom:4px}
+#poke-desc{font-size:15px;line-height:1.8;color:#333;font-weight:300;border-left:3px solid #111;padding-left:14px;overflow:hidden;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical}
 
-.stats-title{font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:#999;font-weight:500;margin-bottom:8px}
-.stats-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:6px}
+.stats-title{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:#bbb;font-weight:500;margin-bottom:9px}
+.stats-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
 .stat-col{display:flex;flex-direction:column;align-items:center;gap:4px}
-.stat-bar-vert{width:6px;height:52px;background:#e8e2d8;border-radius:3px;overflow:hidden;display:flex;align-items:flex-end}
-.stat-fill{width:100%;border-radius:3px}
-.stat-num{font-size:11px;font-weight:500;color:#333}
-.stat-lbl{font-size:8.5px;text-transform:uppercase;letter-spacing:0.5px;color:#aaa;text-align:center}
+.stat-bar-vert{width:7px;height:48px;background:#f0f0f0;border-radius:4px;overflow:hidden;display:flex;align-items:flex-end}
+.stat-fill{width:100%;border-radius:4px}
+.stat-num{font-size:13px;font-weight:500;color:#222}
+.stat-lbl{font-size:9px;text-transform:uppercase;letter-spacing:0.5px;color:#bbb;text-align:center}
 
-.info-row{display:flex;gap:10px;flex-wrap:wrap}
-.chip{background:#fff;border:1px solid #e0d8cc;border-radius:2px;padding:5px 11px;font-size:11px;color:#666;display:flex;gap:5px;align-items:center}
-.chip strong{color:#222;font-weight:500}
-.date-line{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:#bbb;text-align:right}
+.info-row{display:flex;gap:9px;flex-wrap:wrap}
+.chip{background:#f8f8f8;border:1px solid #eee;border-radius:3px;padding:6px 13px;font-size:12px;color:#888;display:flex;gap:6px;align-items:center}
+.chip strong{color:#111;font-weight:500;font-size:13px}
+.date-line{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:#ccc;text-align:right}
 </style>
 </head>
 <body>
@@ -56,7 +56,7 @@ body{display:grid;grid-template-columns:320px 1fr}
     </div>
     <p id="poke-desc">—</p>
   </div>
-  <div class="stats-section">
+  <div>
     <div class="stats-title">Base Stats</div>
     <div class="stats-grid" id="stats-grid"></div>
   </div>
@@ -64,45 +64,30 @@ body{display:grid;grid-template-columns:320px 1fr}
   <div class="date-line" id="date-line"></div>
 </div>
 <script>
-const TYPE_COLORS={fire:{bg:'#FF9B54',text:'#5a1f00'},water:{bg:'#5EAEFF',text:'#002b5a'},grass:{bg:'#6DC96D',text:'#0d3300'},electric:{bg:'#FFD93D',text:'#3a2800'},psychic:{bg:'#F06292',text:'#3a0016'},ice:{bg:'#80DEEA',text:'#003d45'},dragon:{bg:'#7986CB',text:'#0d0f3a'},dark:{bg:'#795548',text:'#f5dfd0'},fairy:{bg:'#F48FB1',text:'#3a001e'},normal:{bg:'#BCAAA4',text:'#2a1a16'},fighting:{bg:'#EF5350',text:'#1a0000'},flying:{bg:'#90CAF9',text:'#001f3a'},poison:{bg:'#AB47BC',text:'#fff'},ground:{bg:'#D4A847',text:'#1a0e00'},rock:{bg:'#A1887F',text:'#fff'},bug:{bg:'#AED581',text:'#1a2800'},ghost:{bg:'#9575CD',text:'#fff'},steel:{bg:'#B0BEC5',text:'#1a2228'},unknown:{bg:'#ccc',text:'#333'}};
-const STAT_LABELS={hp:'HP',attack:'ATK',defense:'DEF','special-attack':'SpA','special-defense':'SpD',speed:'SPD'};
-const STAT_COLORS={hp:'#E57373',attack:'#FF8A65',defense:'#64B5F6','special-attack':'#CE93D8','special-defense':'#81C784',speed:'#4DD0E1'};
-
-const randId=Math.floor(Math.random()*1010)+1;
-
+const TC={fire:{bg:'#FF9B54',text:'#5a1f00'},water:{bg:'#5EAEFF',text:'#002b5a'},grass:{bg:'#6DC96D',text:'#0d3300'},electric:{bg:'#FFD93D',text:'#3a2800'},psychic:{bg:'#F06292',text:'#3a0016'},ice:{bg:'#80DEEA',text:'#003d45'},dragon:{bg:'#7986CB',text:'#fff'},dark:{bg:'#795548',text:'#f5dfd0'},fairy:{bg:'#F48FB1',text:'#3a001e'},normal:{bg:'#BCAAA4',text:'#2a1a16'},fighting:{bg:'#EF5350',text:'#fff'},flying:{bg:'#90CAF9',text:'#001f3a'},poison:{bg:'#AB47BC',text:'#fff'},ground:{bg:'#D4A847',text:'#1a0e00'},rock:{bg:'#A1887F',text:'#fff'},bug:{bg:'#AED581',text:'#1a2800'},ghost:{bg:'#9575CD',text:'#fff'},steel:{bg:'#B0BEC5',text:'#1a2228'},unknown:{bg:'#ccc',text:'#333'}};
+const SL={hp:'HP',attack:'ATK',defense:'DEF','special-attack':'SpA','special-defense':'SpD',speed:'SPD'};
+const SC={hp:'#E57373',attack:'#FF8A65',defense:'#64B5F6','special-attack':'#CE93D8','special-defense':'#81C784',speed:'#4DD0E1'};
+const id=Math.floor(Math.random()*1010)+1;
 async function load(){
   try{
-    const [pr,sr]=await Promise.all([
-      fetch('https://pokeapi.co/api/v2/pokemon/'+randId).then(r=>r.json()),
-      fetch('https://pokeapi.co/api/v2/pokemon-species/'+randId).then(r=>r.json())
-    ]);
+    const[pr,sr]=await Promise.all([fetch('https://pokeapi.co/api/v2/pokemon/'+id).then(r=>r.json()),fetch('https://pokeapi.co/api/v2/pokemon-species/'+id).then(r=>r.json())]);
     document.getElementById('poke-name').textContent=pr.name;
     document.getElementById('num-stamp').textContent='#'+String(pr.id).padStart(3,'0');
-    const genus=(sr.genera||[]).find(g=>g.language.name==='en');
-    document.getElementById('genus-tag').textContent=genus?genus.genus:'';
-    const img=pr.sprites?.other?.['official-artwork']?.front_default||pr.sprites?.front_default||'';
-    document.getElementById('poke-img').src=img;
-    const primaryType=pr.types[0]?.type.name||'normal';
-    const ptc=TYPE_COLORS[primaryType]||TYPE_COLORS.unknown;
+    const g=(sr.genera||[]).find(g=>g.language.name==='en');
+    document.getElementById('genus-tag').textContent=g?g.genus:'';
+    document.getElementById('poke-img').src=pr.sprites?.other?.['official-artwork']?.front_default||pr.sprites?.front_default||'';
+    const pt=pr.types[0]?.type.name||'normal';
+    const ptc=TC[pt]||TC.unknown;
     document.getElementById('img-wrap').style.setProperty('--type-color',ptc.bg);
-    const typesRow=document.getElementById('types-row');
-    typesRow.innerHTML=pr.types.map(t=>{const c=TYPE_COLORS[t.type.name]||TYPE_COLORS.unknown;return '<div class="tpill" style="--tc:'+c.bg+';--ttext:'+c.text+'">'+t.type.name+'</div>';}).join('');
-    const entries=(sr.flavor_text_entries||[]).filter(e=>e.language.name==='en');
-    const pick=entries[Math.floor(Math.random()*Math.min(entries.length,6))];
-    document.getElementById('poke-desc').textContent=pick?pick.flavor_text.replace(/[\f\n\r]/g,' '):'No entry found.';
-    const sg=document.getElementById('stats-grid');
-    sg.innerHTML=pr.stats.map(s=>{const key=s.stat.name;const val=s.base_stat;const pct=Math.min(100,Math.round((val/255)*100));const col=STAT_COLORS[key]||'#888';return '<div class="stat-col"><div class="stat-bar-vert"><div class="stat-fill" style="height:'+pct+'%;background:'+col+'"></div></div><div class="stat-num">'+val+'</div><div class="stat-lbl">'+(STAT_LABELS[key]||key)+'</div></div>';}).join('');
+    document.getElementById('types-row').innerHTML=pr.types.map(t=>{const c=TC[t.type.name]||TC.unknown;return '<div class="tpill" style="--tc:'+c.bg+';--ttext:'+c.text+'">'+t.type.name+'</div>';}).join('');
+    const en=(sr.flavor_text_entries||[]).filter(e=>e.language.name==='en');
+    const pk=en[Math.floor(Math.random()*Math.min(en.length,6))];
+    document.getElementById('poke-desc').textContent=pk?pk.flavor_text.replace(/[\f\n\r]/g,' '):'No entry found.';
+    document.getElementById('stats-grid').innerHTML=pr.stats.map(s=>{const k=s.stat.name;const v=s.base_stat;const p=Math.min(100,Math.round((v/255)*100));return '<div class="stat-col"><div class="stat-bar-vert"><div class="stat-fill" style="height:'+p+'%;background:'+(SC[k]||'#888')+'"></div></div><div class="stat-num">'+v+'</div><div class="stat-lbl">'+(SL[k]||k)+'</div></div>';}).join('');
     const gen=(sr.generation?.name||'').replace('generation-','Gen ').toUpperCase();
-    const ht=(pr.height/10).toFixed(1)+'m';
-    const wt=(pr.weight/10).toFixed(1)+'kg';
-    const hab=sr.habitat?.name||'—';
-    document.getElementById('info-row').innerHTML='<div class="chip">Height <strong>'+ht+'</strong></div><div class="chip">Weight <strong>'+wt+'</strong></div><div class="chip">Gen <strong>'+(gen||'—')+'</strong></div><div class="chip">Habitat <strong>'+hab+'</strong></div>';
-    const d=new Date();
-    document.getElementById('date-line').textContent=d.toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
-  }catch(e){
-    document.getElementById('poke-name').textContent='Error loading';
-    document.getElementById('poke-desc').textContent='Could not fetch data. Check connection.';
-  }
+    document.getElementById('info-row').innerHTML='<div class="chip">Height <strong>'+(pr.height/10).toFixed(1)+'m</strong></div><div class="chip">Weight <strong>'+(pr.weight/10).toFixed(1)+'kg</strong></div><div class="chip">Gen <strong>'+(gen||'—')+'</strong></div><div class="chip">Habitat <strong>'+(sr.habitat?.name||'—')+'</strong></div>';
+    document.getElementById('date-line').textContent=new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
+  }catch(e){document.getElementById('poke-name').textContent='Error';document.getElementById('poke-desc').textContent='Could not load data.';}
 }
 load();
 </script>
