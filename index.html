@@ -4,226 +4,121 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=800"/>
 <title>Pokédex</title>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Share+Tech+Mono&family=Exo+2:wght@800;900&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Exo+2:wght@800;900&display=swap" rel="stylesheet"/>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{width:800px;height:480px;overflow:hidden;background:#cc0000;font-family:'Exo 2',sans-serif}
 
-.pokedex{
-  width:800px;height:480px;
-  background:#cc0000;
-  display:grid;
-  grid-template-columns:300px 1fr;
-  border:4px solid #880000;
-  position:relative;
-}
+.pokedex{width:800px;height:480px;background:#cc0000;display:grid;grid-template-columns:268px 1fr;border:4px solid #880000;position:relative}
 
-/* top deco */
 .top-deco{position:absolute;top:10px;left:12px;display:flex;align-items:center;gap:8px;z-index:10}
 .camera{width:30px;height:30px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#88ccff,#0044cc);border:3px solid #000;box-shadow:0 0 0 2px #444}
-.lights{display:flex;gap:5px;align-items:center}
+.lights{display:flex;gap:5px}
 .dot{width:12px;height:12px;border-radius:50%;border:2px solid #000}
-.dot.r{background:#ff2200}
-.dot.y{background:#ffcc00}
-.dot.g{background:#00cc44}
-
-.hinge{position:absolute;top:0;bottom:0;left:300px;width:6px;background:#880000;z-index:5;border-left:2px solid #660000;border-right:2px solid #660000}
+.dot.r{background:#ff2200}.dot.y{background:#ffcc00}.dot.g{background:#00cc44}
+.hinge{position:absolute;top:0;bottom:0;left:268px;width:6px;background:#880000;z-index:5;border-left:2px solid #660000;border-right:2px solid #660000}
 
 /* LEFT */
-.left{
-  background:#cc0000;
-  padding:50px 14px 14px 14px;
-  display:flex;flex-direction:column;
-  align-items:center;gap:10px;position:relative;
-}
-
-.screen-bezel{
-  width:250px;
-  background:#222;
-  border:5px solid #000;
-  border-radius:6px;
-  padding:6px;
-  box-shadow:0 4px 0 #770000;
-}
-.screen-inner{
-  background:#fff;
-  border:3px solid #000;
-  border-radius:3px;
-  width:100%;height:188px;
-  display:flex;align-items:center;justify-content:center;
-  overflow:hidden;
-}
-#poke-img{width:166px;height:166px;object-fit:contain}
-
-.screen-led{width:12px;height:12px;border-radius:50%;background:#00ff44;border:2px solid #000;box-shadow:0 0 6px #00ff44;margin:5px auto 0}
-
+.left{background:#cc0000;padding:50px 12px 12px 12px;display:flex;flex-direction:column;align-items:center;gap:10px;position:relative}
+.screen-bezel{width:236px;background:#222;border:5px solid #000;border-radius:6px;padding:5px;box-shadow:0 4px 0 #770000}
+.screen-inner{background:#fff;border:3px solid #000;border-radius:2px;width:100%;height:178px;display:flex;align-items:center;justify-content:center}
+#poke-img{width:158px;height:158px;object-fit:contain}
+.screen-led{width:12px;height:12px;border-radius:50%;background:#00ff44;border:2px solid #000;margin:5px auto 0}
 .types-row{display:flex;gap:8px}
-.tpill{
-  font-family:'Orbitron',monospace;
-  font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;
-  padding:6px 14px;border:3px solid #000;border-radius:3px;color:#fff;
-}
-
+.tpill{font-family:'Orbitron',monospace;font-size:12px;font-weight:900;letter-spacing:1px;text-transform:uppercase;padding:6px 14px;border:3px solid #000;border-radius:3px;color:#fff}
 .left-meta{display:flex;justify-content:space-between;width:100%;padding:0 2px}
-.meta-txt{font-family:'Share Tech Mono',monospace;font-size:15px;font-weight:700;color:#ffee00;text-shadow:1px 1px 0 #000;letter-spacing:1px}
-
-.dpad-wrap{position:absolute;bottom:12px;left:14px}
+.meta-txt{font-family:'Orbitron',monospace;font-size:15px;font-weight:900;color:#ffee00;text-shadow:1px 1px 0 #000}
+.dpad-wrap{position:absolute;bottom:12px;left:12px}
 .dpad{width:52px;height:52px;position:relative}
 .dpad-h,.dpad-v{position:absolute;background:#111;border:2px solid #555;border-radius:2px}
 .dpad-h{top:33%;left:0;right:0;height:34%}
 .dpad-v{left:33%;top:0;bottom:0;width:34%}
 .dpad-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:15px;height:15px;background:#333;border-radius:50%;border:2px solid #555}
-
-.buttons-wrap{position:absolute;bottom:16px;right:14px;display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.buttons-wrap{position:absolute;bottom:16px;right:12px;display:flex;gap:8px}
 .btn-circle{width:26px;height:26px;border-radius:50%;border:3px solid #000;display:flex;align-items:center;justify-content:center;font-family:'Orbitron',monospace;font-size:10px;font-weight:900;color:#fff}
 
 /* RIGHT */
-.right{
-  background:#fff;
-  margin-left:6px;
-  padding:12px 16px 12px 16px;
-  display:flex;flex-direction:column;
-  justify-content:space-between;
-}
+.right{background:#fff;margin-left:6px;padding:10px 14px 10px 14px;display:flex;flex-direction:column;gap:8px}
 
-.name-bar{
-  border-bottom:3px solid #cc0000;
-  padding-bottom:8px;margin-bottom:10px;
-}
-#poke-name{
-  font-family:'Orbitron',monospace;
-  font-size:32px;font-weight:900;
-  text-transform:uppercase;color:#000;
-  line-height:1;letter-spacing:1px;
-}
-.entry-label{
-  font-family:'Share Tech Mono',monospace;
-  font-size:12px;color:#cc0000;letter-spacing:3px;text-transform:uppercase;margin-top:4px;
-}
+.name-row{border-bottom:3px solid #000;padding-bottom:7px}
+#poke-name{font-family:'Orbitron',monospace;font-size:30px;font-weight:900;text-transform:uppercase;color:#000;line-height:1;letter-spacing:1px}
+.num-genus{display:flex;gap:10px;align-items:center;margin-top:3px}
+.num-tag{font-family:'Orbitron',monospace;font-size:14px;font-weight:900;color:#000}
+.genus-tag{font-size:13px;font-weight:900;color:#000;text-transform:uppercase;letter-spacing:1px}
 
-/* desc box */
-.desc-box{
-  background:#fff;
-  border:3px solid #cc0000;
-  border-radius:3px;
-  padding:10px 12px;
-  position:relative;
-}
-.desc-box-label{
-  position:absolute;top:-11px;left:10px;
-  background:#fff;
-  font-family:'Share Tech Mono',monospace;
-  font-size:10px;color:#cc0000;letter-spacing:2px;padding:0 5px;
-  font-weight:700;
-}
-#poke-desc{
-  font-family:'Exo 2',sans-serif;
-  font-size:15px;line-height:1.6;color:#000;font-weight:800;
-  overflow:hidden;display:-webkit-box;
-  -webkit-line-clamp:3;-webkit-box-orient:vertical;
-}
+/* desc */
+.desc-box{background:#fff;border:3px solid #000;border-radius:3px;padding:8px 12px;position:relative}
+.desc-box-label{position:absolute;top:-11px;left:8px;background:#fff;font-size:11px;font-weight:900;color:#000;letter-spacing:2px;padding:0 4px;text-transform:uppercase}
+#poke-desc{font-size:14px;line-height:1.55;color:#000;font-weight:900;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
 
-/* stats */
-.stats-label{
-  font-family:'Share Tech Mono',monospace;
-  font-size:11px;color:#cc0000;letter-spacing:3px;text-transform:uppercase;margin-bottom:6px;
-}
-.stats-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:5px}
-.stat-col{display:flex;flex-direction:column;align-items:center;gap:3px}
-.stat-bar-vert{
-  width:22px;height:44px;
-  background:#eee;border:2.5px solid #000;border-radius:3px;
-  overflow:hidden;display:flex;align-items:flex-end;
-}
-.stat-fill{width:100%}
-.stat-num{font-family:'Share Tech Mono',monospace;font-size:14px;font-weight:700;color:#000}
-.stat-lbl{font-family:'Share Tech Mono',monospace;font-size:10px;color:#000;text-transform:uppercase;text-align:center;font-weight:700}
+/* stats — horizontal bars */
+.stats-section{}
+.stats-header{font-size:13px;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:#000;margin-bottom:5px}
+.stat-row{display:flex;align-items:center;gap:6px;margin-bottom:4px}
+.stat-lbl{font-family:'Orbitron',monospace;font-size:12px;font-weight:900;color:#000;width:36px;text-align:right;flex-shrink:0}
+.stat-bar-horiz{flex:1;height:16px;background:#eee;border:2.5px solid #000;border-radius:3px;overflow:hidden}
+.stat-fill-h{height:100%}
+.stat-num{font-family:'Orbitron',monospace;font-size:13px;font-weight:900;color:#000;width:30px;flex-shrink:0}
 
-/* info chips */
+/* info */
 .info-row{display:flex;gap:7px;flex-wrap:wrap}
-.chip{
-  border:2.5px solid #000;border-radius:3px;
-  padding:5px 11px;
-  font-family:'Share Tech Mono',monospace;
-  font-size:13px;font-weight:700;color:#000;background:#fff;
-  white-space:nowrap;
-}
-.chip span{color:#cc0000;font-weight:700}
-
-.date-line{
-  font-family:'Share Tech Mono',monospace;
-  font-size:12px;color:#888;letter-spacing:1px;text-transform:uppercase;text-align:right;
-}
+.chip{border:2.5px solid #000;border-radius:3px;padding:5px 10px;font-size:14px;font-weight:900;color:#000;background:#fff;white-space:nowrap}
+.chip span{font-weight:900;color:#000}
 </style>
 </head>
 <body>
 <div class="pokedex">
   <div class="top-deco">
     <div class="camera"></div>
-    <div class="lights">
-      <div class="dot r"></div>
-      <div class="dot y"></div>
-      <div class="dot g"></div>
-    </div>
+    <div class="lights"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div></div>
   </div>
   <div class="hinge"></div>
 
-  <!-- LEFT -->
   <div class="left">
     <div class="left-meta">
       <span class="meta-txt" id="num-stamp">#001</span>
-      <span class="meta-txt" id="genus-tag" style="font-size:12px;max-width:130px;text-align:right"></span>
+      <span class="meta-txt" style="font-size:11px;max-width:120px;text-align:right" id="genus-tag-left"></span>
     </div>
     <div class="screen-bezel">
-      <div class="screen-inner">
-        <img id="poke-img" src="" alt=""/>
-      </div>
+      <div class="screen-inner"><img id="poke-img" src="" alt=""/></div>
       <div class="screen-led"></div>
     </div>
     <div class="types-row" id="types-row"></div>
-    <div class="dpad-wrap">
-      <div class="dpad">
-        <div class="dpad-h"></div><div class="dpad-v"></div><div class="dpad-center"></div>
-      </div>
-    </div>
+    <div class="dpad-wrap"><div class="dpad"><div class="dpad-h"></div><div class="dpad-v"></div><div class="dpad-center"></div></div></div>
     <div class="buttons-wrap">
       <div class="btn-circle" style="background:#0044cc">A</div>
       <div class="btn-circle" style="background:#cc0000">B</div>
     </div>
   </div>
 
-  <!-- RIGHT -->
   <div class="right">
-    <div class="name-bar">
+    <div class="name-row">
       <div id="poke-name">—</div>
-      <div class="entry-label">Pokédex Entry</div>
+      <div class="num-genus">
+        <span class="num-tag" id="num-tag2"></span>
+        <span class="genus-tag" id="genus-tag"></span>
+      </div>
     </div>
 
     <div class="desc-box">
-      <div class="desc-box-label">ENTRY</div>
+      <div class="desc-box-label">POKÉDEX ENTRY</div>
       <p id="poke-desc">—</p>
     </div>
 
-    <div>
-      <div class="stats-label">Base Stats</div>
-      <div class="stats-grid" id="stats-grid"></div>
+    <div class="stats-section">
+      <div class="stats-header">Base Stats</div>
+      <div id="stats-list"></div>
     </div>
 
     <div class="info-row" id="info-row"></div>
-    <div class="date-line" id="date-line"></div>
   </div>
 </div>
 
 <script>
 const SL={hp:'HP',attack:'ATK',defense:'DEF','special-attack':'SpA','special-defense':'SpD',speed:'SPD'};
-const SC={hp:'#ff2200',attack:'#ff6600',defense:'#0055ff','special-attack':'#aa00ff','special-defense':'#00aa33',speed:'#00aacc'};
-const TC={
-  fire:'#dd2200',water:'#0055cc',grass:'#226600',electric:'#bb8800',
-  psychic:'#cc0055',ice:'#0088aa',dragon:'#2200cc',dark:'#111',
-  fairy:'#aa0066',normal:'#556655',fighting:'#aa0000',flying:'#1133aa',
-  poison:'#7700aa',ground:'#885500',rock:'#665500',bug:'#335500',
-  ghost:'#330077',steel:'#334455',unknown:'#333'
-};
+const SC={hp:'#dd0000',attack:'#dd5500',defense:'#0044cc','special-attack':'#7700bb','special-defense':'#007722',speed:'#0088aa'};
+const TC={fire:'#dd2200',water:'#0055cc',grass:'#226600',electric:'#bb8800',psychic:'#cc0055',ice:'#0088aa',dragon:'#2200cc',dark:'#111',fairy:'#aa0066',normal:'#556655',fighting:'#aa0000',flying:'#1133aa',poison:'#7700aa',ground:'#885500',rock:'#665500',bug:'#335500',ghost:'#330077',steel:'#334455',unknown:'#333'};
+
 const id=Math.floor(Math.random()*1010)+1;
 async function load(){
   try{
@@ -232,27 +127,34 @@ async function load(){
       fetch('https://pokeapi.co/api/v2/pokemon-species/'+id).then(r=>r.json())
     ]);
     document.getElementById('poke-name').textContent=pr.name;
-    document.getElementById('num-stamp').textContent='#'+String(pr.id).padStart(3,'0');
+    const numStr='#'+String(pr.id).padStart(3,'0');
+    document.getElementById('num-stamp').textContent=numStr;
+    document.getElementById('num-tag2').textContent=numStr;
     const g=(sr.genera||[]).find(g=>g.language.name==='en');
-    document.getElementById('genus-tag').textContent=g?g.genus:'';
+    const genus=g?g.genus:'';
+    document.getElementById('genus-tag').textContent=genus;
+    document.getElementById('genus-tag-left').textContent=genus;
     document.getElementById('poke-img').src=pr.sprites?.other?.['official-artwork']?.front_default||pr.sprites?.front_default||'';
     document.getElementById('types-row').innerHTML=pr.types.map(t=>'<div class="tpill" style="background:'+(TC[t.type.name]||'#333')+'">'+t.type.name+'</div>').join('');
     const en=(sr.flavor_text_entries||[]).filter(e=>e.language.name==='en');
     const pk=en[Math.floor(Math.random()*Math.min(en.length,6))];
     document.getElementById('poke-desc').textContent=pk?pk.flavor_text.replace(/[\f\n\r]/g,' '):'No entry found.';
-    document.getElementById('stats-grid').innerHTML=pr.stats.map(s=>{
+
+    // horizontal stat bars
+    document.getElementById('stats-list').innerHTML=pr.stats.map(s=>{
       const p=Math.min(100,Math.round((s.base_stat/255)*100));
-      return '<div class="stat-col"><div class="stat-bar-vert"><div class="stat-fill" style="height:'+p+'%;background:'+(SC[s.stat.name]||'#000')+'"></div></div><div class="stat-num">'+s.base_stat+'</div><div class="stat-lbl">'+(SL[s.stat.name]||s.stat.name)+'</div></div>';
+      const col=SC[s.stat.name]||'#000';
+      return '<div class="stat-row"><div class="stat-lbl">'+(SL[s.stat.name]||s.stat.name)+'</div><div class="stat-bar-horiz"><div class="stat-fill-h" style="width:'+p+'%;background:'+col+'"></div></div><div class="stat-num">'+s.base_stat+'</div></div>';
     }).join('');
+
     const gen=(sr.generation?.name||'').replace('generation-','Gen ').toUpperCase();
     const ht=(pr.height/10).toFixed(1);
     const wt=(pr.weight/10).toFixed(1);
     document.getElementById('info-row').innerHTML=
       '<div class="chip">Height: <span>'+ht+' m</span></div>'+
       '<div class="chip">Weight: <span>'+wt+' kg</span></div>'+
-      '<div class="chip">'+( gen||'—')+'</div>'+
-      '<div class="chip">'+(sr.habitat?.name?sr.habitat.name.charAt(0).toUpperCase()+sr.habitat.name.slice(1):'Unknown')+'</div>';
-    document.getElementById('date-line').textContent=new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+      '<div class="chip"><span>'+(gen||'—')+'</span></div>'+
+      '<div class="chip">Habitat: <span>'+(sr.habitat?.name?sr.habitat.name.charAt(0).toUpperCase()+sr.habitat.name.slice(1):'Unknown')+'</span></div>';
   }catch(e){
     document.getElementById('poke-name').textContent='ERROR';
     document.getElementById('poke-desc').textContent='Could not load. Check connection.';
